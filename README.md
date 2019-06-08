@@ -4,7 +4,7 @@ vim-autocommit
 Git auto-commit plugin for vim.
 
 `vim-autocommit` lets every vim-edited file under git working tree automatically
-commited. Commit changes often and squash the commits later. Like this:
+committed. Commit changes often and squash the commits later. Like this:
 
 ```console
 $ git rebase -i HEAD~5
