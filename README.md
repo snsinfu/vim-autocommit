@@ -40,6 +40,7 @@ au FileType markdown let b:autocommit_disabled = 1
 
 " Do not autocommit on save. You can still trigger :AutoCommit manually.
 let g:autocommit_on_save = 0
+nmap + :AutoCommit<cr>
 ```
 
 ## Advanced configurations
