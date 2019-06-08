@@ -1,11 +1,10 @@
 vim-autocommit
 ==============
 
-Experimental git auto-commit plugin for vim.
+Git auto-commit plugin for vim.
 
-vim-autocommit lets every file edited in vim automatically commited to git
-repository. This is an experiment on the idea that one commits changes often
-and squash the commits later. Like this:
+`vim-autocommit` lets every vim-edited file under git working tree automatically
+commited. Commit changes often and squash the commits later. Like this:
 
 ```console
 $ git rebase -i HEAD~5
@@ -57,7 +56,7 @@ au BufLeave * AutoCommit
 
 ### Map :w to autocommit
 
-More aggressively, you can remap `:w` to do autocommit instead of save.
+You can even remap `:w` to do autocommit instead of save.
 
 ```vim
 Plug 'snsinfu/vim-autocommit'
@@ -68,6 +67,11 @@ let g:auto_save = 1
 set nocompatible
 ca w <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'AutoCommit' : 'w')<cr>
 ```
+
+## Development status
+
+Experimental. I'm using this plugin myself to see if the idea works. If it
+works, I will bump the version to 1.0 and continue the development.
 
 ## License
 
