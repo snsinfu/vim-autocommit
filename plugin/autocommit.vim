@@ -15,7 +15,6 @@ function! s:config(var, default) abort
 endfunction
 
 call s:config('g:autocommit_message_prefix', 'wip! ')
-call s:config('g:autocommit_branch_prefix', '')
 call s:config('g:autocommit_on_save', 1)
 
 command! AutoCommit call autocommit#do_autocommit(bufnr(''))

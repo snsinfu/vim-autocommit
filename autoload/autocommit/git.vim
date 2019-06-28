@@ -22,6 +22,31 @@ function! autocommit#git#query_topdir(path) abort
 endfunction
 
 
+" Returns the local git config.
+"
+" Args:
+"   path - Path to a file or a directory in a git work tree.
+"   key  - Config key.
+"
+" Returns:
+"   The config value associated with the key. Empty string is returned path is
+"   not under a git work tree or the config key does not exist.
+"
+function! autocommit#git#get_config(path, key) abort
+  let dir = fnamemodify(a:path, ':h')
+  let cmd =
+    \ 'cd ' . shellescape(dir) . ' &&' .
+    \ 'git config --get ' . shellescape(a:key)
+  let gitconfig = trim(system(cmd))
+
+  if v:shell_error
+    return ""
+  endif
+
+  return gitconfig
+endfunction
+
+
 " Returns the current branch name of the work tree containing specified path.
 "
 " Args:

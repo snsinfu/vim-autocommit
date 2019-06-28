@@ -4,10 +4,13 @@
 " Args:
 "   bufnr - Buffer number.
 "
-" Config:
+" VimConfig:
 "   b:autocommit_disabled
-"   g:autocommit_branch_prefix
 "   g:autocommit_message_prefix
+"
+" GitConfig:
+"   vim_autocommit.enabled
+"   vim_autocommit.branch_prefix
 "
 function! autocommit#do_autocommit(bufnr) abort
   let path = resolve(expand('#' . a:bufnr . ':p'))
@@ -22,19 +25,28 @@ function! autocommit#do_autocommit(bufnr) abort
     return
   endif
 
+  if !autocommit#utils#starts_with(path, gittop)
+    " Unexpected.
+    return
+  endif
+
+  let enabled = autocommit#git#get_config(path, "vim_autocommit.enabled")
+  if enabled != 1
+    " Not enabled in this repository.
+    return
+  endif
+
   let branch = autocommit#git#query_branch(path)
   if len(branch) == 0
     " Unexpected.
     return
   endif
 
-  if !autocommit#utils#starts_with(branch, g:autocommit_branch_prefix)
-    " Not in an allowed branch.
-    return
-  endif
-
-  if !autocommit#utils#starts_with(path, gittop)
-    " Unexpected.
+  let branch_prefix = autocommit#git#get_config(
+    \   path, "vim_autocommit.branch_prefix"
+    \ )
+  if !autocommit#git#starts_with(branch, branch_prefix)
+    " Not allowed in this branch.
     return
   endif
 
