@@ -2,7 +2,15 @@ vim-autocommit
 ==============
 
 `vim-autocommit` automatically commits changes to git-managed files edited in
-vim. Useful when fiddling in a feature branch.
+vim. Useful when fiddling in a feature branch. Commit log would look like this:
+
+```
+f25c813 wip! Change foo.c (-2/+9 lines)
+bc16dd9 wip! Change bar.c (-9/+15 lines)
+c54bce8 wip! Change bar.c (-2/+5 lines)
+12c4d1a wip! Change foo.c (-0/+20 lines)
+1a2cb2a wip! Add foo.c
+```
 
 ## Install
 
@@ -29,16 +37,16 @@ starting with the configured prefix (`hack-` here). You may want to work in a
 ## Customization
 
 By default autocommit is triggered when leaving from a buffer. You can change
-this behavior by clearing and setting autocmds. Examples:
+this behavior by clearing and setting autocmds in vimrc. Examples:
 
 ```vim
-# Autocommit on save.
+" Autocommit on save.
 au! autocommit
 au BufWritePost * AutoCommit
 ```
 
 ```vim
-# Autocommit when + key is pressed in normal mode.
+" Autocommit when + key is pressed in normal mode.
 au! autocommit
 nn + :AutoCommit<cr>
 ```
