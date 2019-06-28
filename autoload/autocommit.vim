@@ -13,40 +13,32 @@
 "   vim_autocommit.branch_prefix
 "
 function! autocommit#do_autocommit(bufnr) abort
-  let path = resolve(expand('#' . a:bufnr . ':p'))
-
   if getbufvar(a:bufnr, 'autocommit_disabled', 0)
     return
   endif
 
+  let path = resolve(expand('#' . a:bufnr . ':p'))
+
   let gittop = autocommit#git#query_topdir(path)
   if len(gittop) == 0
-    " Not under git working tree.
-    return
-  endif
-
-  if !autocommit#utils#starts_with(path, gittop)
-    " Unexpected.
     return
   endif
 
   let enabled = autocommit#git#get_config(path, "vim_autocommit.enabled")
   if enabled != 1
-    " Not enabled in this repository.
     return
   endif
 
   let branch = autocommit#git#query_branch(path)
   if len(branch) == 0
-    " Unexpected.
-    return
+    throw "cannot identify brnach"
   endif
 
+  " Prefix-based whitelisting.
   let branch_prefix = autocommit#git#get_config(
     \   path, "vim_autocommit.branch_prefix"
     \ )
   if !autocommit#git#starts_with(branch, branch_prefix)
-    " Not allowed in this branch.
     return
   endif
 
