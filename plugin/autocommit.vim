@@ -1,7 +1,7 @@
-" autocommit.vim - Auto-commit on file save.
+" autocommit.vim - Git auto-commit plugin.
 " Maintainer: snsinfu <snsinfu@gmail.com>
 " Source:     https://github.com/snsinfu/vim-autocommit
-" Version:    0.1
+" Version:    0.2
 
 if exists('g:loaded_autocommit')
   finish
@@ -15,13 +15,11 @@ function! s:config(var, default) abort
 endfunction
 
 call s:config('g:autocommit_message_prefix', 'wip! ')
-call s:config('g:autocommit_on_save', 1)
 
 command! AutoCommit call autocommit#do_autocommit(bufnr(''))
 
 augroup autocommit
   autocmd!
-  if g:autocommit_on_save
-    autocmd BufWritePost * AutoCommit
-  endif
+  autocmd BufLeave * AutoCommit
+  autocmd BufWinLeave * AutoCommit
 augroup END
