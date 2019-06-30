@@ -26,11 +26,11 @@ Autocommit is _not_ enabled by default. Enable it by setting the following git
 config entries to your repository:
 
 ```sh
-git config --local vim_autocommit.enabled 1
-git config --local vim_autocommit.branch_prefix "hack-"
+git config --local vim-autocommit.enabled 1
+git config --local vim-autocommit.branch-prefix "hack-"
 ```
 
-Setting `branch_prefix` entry restricts autocommit to only happen in branches
+Setting `branch-prefix` entry restricts autocommit to only happen in branches
 starting with the configured prefix (`hack-` here). You may want to work in a
 "hacking branch" and squash-merge the changes to a main branch later.
 

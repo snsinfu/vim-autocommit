@@ -9,8 +9,8 @@
 "   g:autocommit_message_prefix
 "
 " GitConfig:
-"   vim_autocommit.enabled
-"   vim_autocommit.branch_prefix
+"   vim-autocommit.enabled
+"   vim-autocommit.branch-prefix
 "
 function! autocommit#do_autocommit(bufnr) abort
   if getbufvar(a:bufnr, 'autocommit_disabled', 0)
@@ -24,7 +24,7 @@ function! autocommit#do_autocommit(bufnr) abort
     return
   endif
 
-  let enabled = autocommit#git#get_config(path, "vim_autocommit.enabled")
+  let enabled = autocommit#git#get_config(path, "vim-autocommit.enabled")
   if enabled != 1
     return
   endif
@@ -36,9 +36,9 @@ function! autocommit#do_autocommit(bufnr) abort
 
   " Prefix-based whitelisting.
   let branch_prefix = autocommit#git#get_config(
-    \   path, "vim_autocommit.branch_prefix"
+    \   path, "vim-autocommit.branch-prefix"
     \ )
-  if !autocommit#git#starts_with(branch, branch_prefix)
+  if !autocommit#utils#starts_with(branch, branch_prefix)
     return
   endif
 
